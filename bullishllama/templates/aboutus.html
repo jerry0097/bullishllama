@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About Us - Bullish Llama</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #74ABE2, #5563DE);
+      margin: 0;
+      color: #fff;
+      padding: 50px 20px;
+    }
+    .container {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 30px;
+      border-radius: 10px;
+    }
+    h3 {
+      font-weight: 600;
+    }
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    ul {
+      margin-left: 20px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation bar -->
+  <nav class="transparent z-depth-0">
+    <div class="nav-wrapper" style="padding: 0 20px;">
+      <a href="/" class="brand-logo right" style="font-family: 'Pacifico', cursive;">🦙 Bullish Llama</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h3>About Bullish Llama</h3>
+    <p><strong>Bullish Llama</strong> is a technically-driven financial decision support system built with a dual-layer strategy: combining real-time stock market data with AI-enhanced fundamental and technical analysis. The platform is designed to assist individual investors in making informed and balanced portfolio decisions based on their investment amount and risk appetite.</p>
+
+    <h5>Core Features</h5>
+    <ul>
+      <li><strong>Real-Time Data Integration</strong> via Dhan APIs, supporting both bluechip and penny stock screening.</li>
+      <li><strong>Heuristic-Based Technical Analysis</strong>: Determines buy signals (Buy / Strong Buy / Neutral / Wait) based on stock price positions relative to 1-year high/low trends.</li>
+      <li><strong>LLM-Driven Fundamental Analysis</strong> using Gemini API to provide intelligent investment commentary and recommendations.</li>
+      <li><strong>Dynamic Portfolio Allocation Engine</strong> that factors in both price thresholds and diversification constraints across Low, Medium, and High risk appetites.</li>
+      <li><strong>Responsive Frontend</strong> using Flask + MaterializeCSS with custom UI components and validation logic.</li>
+    </ul>
+
+    <h5>Technical Stack</h5>
+    <ul>
+      <li>Backend: Python (Flask)</li>
+      <li>Data Sources: Dhan Stock Screener API, Google Gemini LLM API</li>
+      <li>Frontend: MaterializeCSS + HTML5</li>
+      <li>Deployment: Localhost (Development), Future-ready for Docker/Cloud</li>
+    </ul>
+
+    <h5>Pipeline Logic</h5>
+    <p>After fetching stock data via the Dhan Screener API (bluechip and penny stock sets), Bullish Llama performs multi-step analysis:</p>
+    <ul>
+      <li><strong>Position Estimation:</strong> LTP is normalized against 1-year low and high to evaluate where the stock sits in its yearly range.</li>
+      <li><strong>Technical Signal Logic:</strong> 
+        <ul>
+          <li>If position &lt; 10% and price is falling → STRONG BUY</li>
+          <li>If position &lt; 30% and price is falling → BUY</li>
+          <li>If position is between 30%–70% → NEUTRAL</li>
+          <li>Else → WAIT</li>
+        </ul>
+      </li>
+      <li><strong>Buy Zone:</strong> The Ideal Buy Price = (LTP + 1-Year Low) / 2. A buy range (±10%) and stop loss (-5%) are computed around this price.</li>
+      <li><strong>Fundamental Analysis:</strong> Gemini LLM provides a 2-line summary and flags stocks as XXXX (Buy) or YYYY (Don’t Buy).</li>
+      <li><strong>Filtering:</strong> Stocks that are both technically strong and LLM-approved are retained for allocation.</li>
+      <li><strong>Portfolio Construction:</strong>
+        <ul>
+          <li>Stocks are split by price threshold (₹100) and allocated based on the user’s risk profile (Low, Medium, High).</li>
+          <li>Funds are distributed iteratively, 1 share at a time per stock, with diversification limits enforced (30–50%).</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h5>Intended Users</h5>
+    <p>This application is designed for early-stage or intermediate investors who are looking for AI-guided insights, simplified portfolio construction, and custom investment suggestions without the noise of full-scale trading platforms.</p>
+
+    <h5>Roadmap</h5>
+    <ul>
+      <li>📈 Add trend prediction using LSTM or transformer-based models</li>
+      <li>🔔 Push notifications for stock triggers and portfolio alerts</li>
+      <li>📊 Export to PDF/CSV and real-time sync with Google Sheets</li>
+      <li>☁️ Containerize the app and deploy to cloud infrastructure</li>
+    </ul>
+
+    <h5>Contributors</h5>
+    <ul>
+      <li><strong>Founder & Developer:</strong> Jerry A. (aka Bullish Llama Wrangler 🦙)</li>
+      <li><strong>Mentor:</strong> Dr. Sivakumar</li>
+      <li><strong>LLM Assistant:</strong> Gemini API (Google)</li>
+      <li><strong>Market Data Provider:</strong> Dhan APIs</li>
+    </ul>
+
+    <h5>Disclaimer</h5>
+    <p>Investment in securities market are subject to market risks. Read all related documents carefully before investing. Bullish Llama is not liable for any loss incurred, but will take 10% of all profits registered. 😉</p>
+  </div>
+</body>
+</html>

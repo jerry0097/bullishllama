@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Investment Details</title>
+</head>
+<body>
+  <h1>Enter Investment Details</h1>
+  <form method="post">
+    <label for="investment_amount">Investment Amount:</label>
+    <input type="number" name="investment_amount" id="investment_amount" step="any" required>
+    <br><br>
+    <label for="risk_appetite">Risk Appetite:</label>
+    <select name="risk_appetite" id="risk_appetite" required>
+      <option value="low">Low</option>
+      <option value="medium" selected>Medium</option>
+      <option value="high">High</option>
+    </select>
+    <br><br>
+    <input type="submit" value="Submit">
+  </form>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Investment Details</title>
+  <!-- Import Materialize CSS from CDN -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- Import Google Icon Font -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    body {
+      /* A nice gradient background */
+      background: linear-gradient(135deg, #74ABE2, #5563DE);
+      margin: 0;
+      font-family: 'Hind', sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .container {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    nav {
+        width: 100%;
+        box-shadow: none;
+        background-color: transparent;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+    .brand-logo {
+    font-weight: bold;
+    font-family: 'Pacifico', cursive;
+    font-size: 1.3rem;
+    color: #f4f4f4 !important;
+    }
+  </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-wrapper" style="padding-right: 20px;">
+          <a href="/" class="brand-logo right">
+            🦙 Bullish Llama
+          </a>
+        </div>
+      </nav> 
+  <div class="container">
+    <h4 class="center-align">Getting started...</h4>
+    <div class="row">
+      <form class="col s12" method="post">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="investment_amount" name="investment_amount" type="number" step="any" required>
+            <label for="investment_amount">How much can you invest?</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <select name="risk_appetite" id="risk_appetite" required>
+              <option value="low">Low</option>
+              <option value="medium" selected>Medium</option>
+              <option value="high">High</option>
+            </select>
+            <label for="risk_appetite">How risky are we feeling?</label>
+          </div>
+        </div>
+        <div class="row center-align">
+          <button class="btn waves-effect waves-light" type="submit">
+            Submit
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Import jQuery and Materialize JS from CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      // Initialize Materialize select element
+      $('select').formSelect();
+
+      // Form validation and reset on submit
+      $('form').on('submit', function(e) {
+        var amount = parseFloat($('#investment_amount').val());
+        var risk = $('#risk_appetite').val();
+        var minAmount = 500; // default minimum
+
+        if(risk === 'low') {
+          minAmount = 5000;
+        } else if(risk === 'medium') {
+          minAmount = 3000;
+        }
+
+        if (isNaN(amount) || amount < minAmount) {
+          M.toast({html: 'For ' + risk + ' risk, the investment must be greater than ' + minAmount + '!', classes: 'red'});
+          e.preventDefault();
+          return false;
+        } else {
+          // Allow form submission, then reset the form after a brief delay.
+          setTimeout(() => {
+            $('#investment_amount').val('');
+            $('#risk_appetite').prop('selectedIndex', 1); // reset to Medium
+            $('select').formSelect(); // re-initialize select
+        }, 100);
+        }
+      });
+    });
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Portfolio Suggestion</title>
+  <!-- Import Materialize CSS from CDN -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- Import Google Icon Font -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    body {
+        font-family: 'Hind', sans-serif;
+        background: linear-gradient(135deg, #74ABE2, #5563DE);
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 60px;
+        padding-bottom: 50px; /* for the ticker */
+        overflow: hidden;
+        }
+
+    .container {
+        background-color: rgba(255, 255, 255, 0.95);
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        width: 95%;
+        max-width: 1200px;
+        max-height: 85vh;
+        overflow-y: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+    }
+
+    table th, table td {
+        padding: 10px 12px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+
+    table th {
+        background-color: #f2f2f2;
+    }
+
+    h3 {
+        margin-top: 0;
+    }
+
+    .ticker-container {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: rgba(0,0,0,0.8);
+        overflow: hidden;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        z-index: 999;
+    }
+
+    .ticker-text {
+        display: inline-block;
+        white-space: nowrap;
+        color: #fff;
+        padding-left: 100%;
+        animation: scroll-left 25s linear infinite;
+        font-size: 13px;
+    }
+
+    @keyframes scroll-left {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-100%); }
+    }
+
+    nav {
+        width: 100%;
+        box-shadow: none;
+        background-color: transparent;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 998;
+    }
+
+    .brand-logo {
+        font-weight: bold;
+        font-family: 'Pacifico', cursive;
+        font-size: 1.3rem;
+        color: #f4f4f4 !important;
+    }
+  </style>
+</head>
+<body>
+    <nav class="transparent z-depth-0">
+        <div class="nav-wrapper" style="padding: 0 20px;">
+          <a href="#" data-target="slide-out" class="sidenav-trigger left show-on-large">
+            <i class="material-icons">menu</i>
+          </a>
+          <a href="/" class="brand-logo right" style="font-family: 'Pacifico', cursive;">
+            🦙 Bullish Llama
+          </a>
+        </div>
+      </nav>
+    
+    <ul id="slide-out" class="sidenav">
+        <li><a href="https://www.screener.in/"><i class="material-icons">insights</i>Screener</a></li>
+        <li><a href="https://zerodha.com/open-account"><i class="material-icons">show_chart</i>Open Demat A/c</a></li>
+        <li><a href="https://zerodha.com/varsity/"><i class="material-icons">attach_money</i>Learn</a></li>
+        <li><a href="{{ url_for('about') }}"><i class="material-icons">info</i>About us</a></li>
+    </ul>
+
+  <div class="container">
+    <h4 class="center-align">Suggested Portfolio</h4>
+    <p><strong>Investment Amount:</strong> {{ investment_amount }}</p>
+    <p><strong>Total Allocated:</strong> {{ total_allocated | round(2) }}</p>
+    {% if within_tolerance %}
+      <p class="green-text"><strong>Total allocation is within ±10% of the investment amount.</strong></p>
+    {% else %}
+      <p class="red-text"><strong>Warning: Total allocation is outside ±10% of the investment amount.</strong></p>
+    {% endif %}
+    
+    <table>
+      <thead>
+        <tr>
+          <th>Stock</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Total</th>
+          <th>Analysis</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for entry in portfolio %}
+        <tr>
+          <td>{{ entry["Stock"] }}</td>
+          <td>{{ entry["Price"] }}</td>
+          <td>{{ entry["Quantity"] }}</td>
+          <td>{{ entry["Total"] }}</td>
+          <td>{{ entry["Analysis"] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  
+  <!-- Import jQuery and Materialize JS from CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var sidenavElems = document.querySelectorAll('.sidenav');
+      M.Sidenav.init(sidenavElems);
+    });
+  </script>
+  <div class="ticker-container">
+    <div class="ticker-text">
+      📢 Investment in securities market are subject to market risks, read all the related documents carefully before investing.
+      Bullish Llama is not liable for any loss you incur but will take 10% of all profits registered.
+    </div>
+  </div>  
+</body>
+</html>

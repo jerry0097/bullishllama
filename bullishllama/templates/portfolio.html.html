@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Portfolio Suggestion</title>
+</head>
+<body>
+  <h1>Suggested Portfolio</h1>
+  <p><strong>Investment Amount:</strong> {{ investment_amount }}</p>
+  <p><strong>Total Allocated:</strong> {{ total_allocated }}</p>
+  {% if within_tolerance %}
+    <p style="color: green;">Total allocation is within ±10% of the investment amount.</p>
+  {% else %}
+    <p style="color: red;">Warning: Total allocation is outside ±10% of the investment amount.</p>
+  {% endif %}
+  
+  <table border="1" cellspacing="0" cellpadding="5">
+    <thead>
+      <tr>
+        <th>Stock</th>
+        <th>Price to Enter At</th>
+        <th>Quantity</th>
+        <th>Total</th>
+        <th>Fundamental Analysis</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for entry in portfolio %}
+      <tr>
+        <td>{{ entry["Stock"] }}</td>
+        <td>{{ entry["Price to enter at"] }}</td>
+        <td>{{ entry["Quantity"] }}</td>
+        <td>{{ entry["Total"] }}</td>
+        <td>{{ entry["Fundamental Analysis"] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>
